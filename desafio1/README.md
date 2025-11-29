@@ -144,15 +144,11 @@ docker run -d --name cliente --network rede-desafio1 cliente-web
 ```bash
 docker logs -f cliente
 ```
-![
-  
-](image.png)
+![](../imagens/desafio1-primeira.png)
 
 ### 7. Testar diretamente no navegador
 Acesse: `http://localhost:8080`
-![
-  
-](image-1.png)
+![](../imagens/desafio1-segunda.png)
 
 ## Parar e Limpar
 ```bash
