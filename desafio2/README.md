@@ -127,9 +127,7 @@ cd desafio2
 ### 2. Buildar as imagens
 ```bash
 docker build -t db-sqlite .
-![alt text](image.png)
 docker build -t db-leitor -f Dockerfile.leitor .
-![alt text](image-1.png)
 ```
 
 ### 3. Criar o volume
@@ -265,4 +263,5 @@ desafio2/
 ├── init.sql
 ├── setup.sh
 └── README.md
+(+ imagens do README)
 ```

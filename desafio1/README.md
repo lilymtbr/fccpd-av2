@@ -144,9 +144,15 @@ docker run -d --name cliente --network rede-desafio1 cliente-web
 ```bash
 docker logs -f cliente
 ```
+![
+  
+](image.png)
 
 ### 7. Testar diretamente no navegador
 Acesse: `http://localhost:8080`
+![
+  
+](image-1.png)
 
 ## Parar e Limpar
 ```bash
@@ -185,4 +191,5 @@ desafio1/
 ├── cliente/
 │   └── Dockerfile
 └── README.md
+
 ```
