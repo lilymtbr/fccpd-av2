@@ -187,5 +187,4 @@ desafio1/
 ├── cliente/
 │   └── Dockerfile
 └── README.md
-
 ```

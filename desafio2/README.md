@@ -129,6 +129,7 @@ cd desafio2
 docker build -t db-sqlite .
 docker build -t db-leitor -f Dockerfile.leitor .
 ```
+![](../imagens/desafio2-primeira.png)
 
 ### 3. Criar o volume
 ```bash
@@ -149,6 +150,7 @@ docker run --rm -v dados-desafio2:/data db-sqlite sqlite3 /data/banco.db "SELECT
 ```bash
 docker run --rm -v dados-desafio2:/data db-leitor
 ```
+![](../imagens/desafio2-segunda.png)
 
 ### 7. Inserir mais dados (demonstrar persistência)
 ```bash
@@ -164,20 +166,24 @@ docker run --rm -v dados-desafio2:/data db-leitor
 ```bash
 docker volume inspect dados-desafio2
 ```
+![](../imagens/desafio2-terceira.png)
 
 ## Demonstração de Persistência
 
 ### Teste 1: Dados persistem após remover container
-```bash
-# Cria dados
-docker run --rm -v dados-desafio2:/data db-sqlite /setup.sh
+⚠️ **Nota:** Se você executar este teste após seguir as "Instruções de Execução", os dados serão duplicados (como mostrado na imagem). Isso acontece porque o `setup.sh` será executado novamente, inserindo mais 3 usuários. Essa duplicação na verdade **demonstra a persistência** - os dados anteriores permanecem no volume mesmo após remover containers!
 
+Para este teste, a duplicação não é um problema, pois o objetivo é apenas comprovar que os dados persistem.
+```bash
+# Cria dados.
 # Container é automaticamente removido (--rm)
 # Mas os dados permanecem no volume
+docker run --rm -v dados-desafio2:/data db-sqlite /setup.sh
 
 # Novo container lê os mesmos dados
 docker run --rm -v dados-desafio2:/data db-leitor
 ```
+![](../imagens/desafio2-quarta.png)
 
 ### Teste 2: Múltiplos containers acessam o mesmo volume
 ```bash
@@ -187,12 +193,14 @@ docker run --rm -v dados-desafio2:/data db-sqlite sqlite3 /data/banco.db "INSERT
 # Container 2 (leitor): lê os dados inseridos pelo Container 1
 docker run --rm -v dados-desafio2:/data db-leitor
 ```
+![](../imagens/desafio2-quinta.png)
 
 ### Teste 3: Container leitor específico
 ```bash
 # Usar o container leitor para buscar um usuário específico
 docker run --rm -v dados-desafio2:/data db-sqlite sqlite3 /data/banco.db "SELECT * FROM usuarios WHERE nome='Jorge Soares';"
 ```
+![](../imagens/desafio2-sexta.png)
 
 ## Parar e Limpar
 ```bash
@@ -219,37 +227,37 @@ Banco de dados criado com sucesso!
 
 Dados inseridos na tabela usuarios:
 
-1|Jorge Soares|jorge@email.com|2025-11-25 22:44:06
-2|Diego Bezerra|diego@email.com|2025-11-25 22:44:06
-3|Laura Pacífico|laura@email.com|2025-11-25 22:44:06
+1|Jorge Soares|jorge@email.com|2025-11-29 22:53:13
+2|Diego Bezerra|diego@email.com|2025-11-29 22:53:13
+3|Laura Pacífico|laura@email.com|2025-11-29 22:53:13
 
 ======================================
 ```
 
 ### Ao consultar os dados:
 ```
-1|Jorge Soares|jorge@email.com|2025-11-25 22:44:06
-2|Diego Bezerra|diego@email.com|2025-11-25 22:44:06
-3|Laura Pacífico|laura@email.com|2025-11-25 22:44:06
+1|Jorge Soares|jorge@email.com|2025-11-29 22:53:13
+2|Diego Bezerra|diego@email.com|2025-11-29 22:53:13
+3|Laura Pacífico|laura@email.com|2025-11-29 22:53:13
 ```
 
 ### Ao usar o container leitor:
 ```
-1|Jorge Soares|jorge@email.com|2025-11-25 22:44:06
-2|Diego Bezerra|diego@email.com|2025-11-25 22:44:06
-3|Laura Pacífico|laura@email.com|2025-11-25 22:44:06
+1|Jorge Soares|jorge@email.com|2025-11-29 22:53:13
+2|Diego Bezerra|diego@email.com|2025-11-29 22:53:13
+3|Laura Pacífico|laura@email.com|2025-11-29 22:53:13
 ```
 
 ### Ao inspecionar o volume:
 ```json
 [
     {
-        "CreatedAt": "2025-11-25T22:44:00Z",
+        "CreatedAt": "2025-11-29T22:53:07Z",
         "Driver": "local",
-        "Labels": {},
+        "Labels": null,
         "Mountpoint": "/var/lib/docker/volumes/dados-desafio2/_data",
         "Name": "dados-desafio2",
-        "Options": {},
+        "Options": null,
         "Scope": "local"
     }
 ]
@@ -263,5 +271,4 @@ desafio2/
 ├── init.sql
 ├── setup.sh
 └── README.md
-(+ imagens do README)
 ```
