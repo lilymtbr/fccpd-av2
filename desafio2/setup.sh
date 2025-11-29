@@ -1,3 +1,5 @@
+#!/bin/sh
+
 sqlite3 /data/banco.db < /init.sql
 
 echo "======================================"
