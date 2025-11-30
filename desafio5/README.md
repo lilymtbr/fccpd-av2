@@ -244,9 +244,14 @@ curl http://localhost:5000/users/1
 ![](../imagens/desafio5-nona.png)
 ![](../imagens/desafio5-decima.png)
 
-**Saída esperada:**
+**Saída no Linux:**
 ```json
 {"id": 1, "name": "Ana Silva", "email": "ana@email.com", "role": "Manager"}
+```
+```
+**Saída no Windows PowerShell:**
+StatusCode        : 200
+Content           : {"email":"ana@email.com","id":1,"name":"Ana Silva","role":"Manager"}
 ```
 
 ---
@@ -283,7 +288,7 @@ Content           : {"orders":[{"amount":3500.0,"id":1,"product":"Notebook","sta
                     "total_orders":2,"user":{"email":"ana@email.com"...}}
 ```
 
-💡 **Este endpoint demonstra a orquestração do Gateway:** ele busca dados de dois serviços diferentes e combina em uma única resposta!
+**Este endpoint demonstra a orquestração do Gateway:** ele busca dados de dois serviços diferentes e combina em uma única resposta!
 
 ---
 
@@ -330,6 +335,14 @@ curl http://localhost:5000/users
   "error": "Falha ao comunicar com Users Service",
   "details": "..."
 }
+```
+```
+curl : {"details":"HTTPConnectionPool(host='users-service', port=5001): Max retries exceeded...","error":"Falha ao comunicar com Users Service"}
+No linha:1 caractere:1
++ curl http://localhost:5000/users
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.Net.HttpWebRequest:HttpWebRequest) [Invoke-WebRequest], WebException
+    + FullyQualifiedErrorId : WebCmdletWebResponseException,Microsoft.PowerShell.Commands.InvokeWebRequestCommand
 ```
 
 **Restartar o serviço:**
