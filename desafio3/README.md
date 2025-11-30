@@ -114,42 +114,54 @@ docker-compose up -d
 ```bash
 docker-compose ps
 ```
-![](../imagens/desafio3-primeira.png)
+
+![Status dos containers](../imagens/desafio3-primeira.png)
 
 ### 4. Ver logs da aplicação web
 ```bash
 docker-compose logs -f web
 ```
-![](../imagens/desafio3-segunda.png)
+
+![Logs do serviço web](../imagens/desafio3-segunda.png)
 
 ### 5. Testar a API
 
-**No navegador ou PowerShell:**
+**Ver endpoints disponíveis:**
 ```powershell
-# Ver endpoints disponíveis
 curl http://localhost:5000
-![](../imagens/desafio3-terceira.png)
-![](../imagens/desafio3-quarta.png)
+```
 
-# Incrementar contador. Realiza uma requisição POST para adicionar uma nova visita.
+![Resposta do endpoint raiz](../imagens/desafio3-terceira.png)
+![Detalhes da resposta](../imagens/desafio3-quarta.png)
+
+**Incrementar contador:**
+```powershell
+# Realiza uma requisição POST para adicionar uma nova visita
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
-![](../imagens/desafio3-quinta.png)
+```
 
-# Ver número de visitas.
-# Nota: Nos testes anteriores o contador já estava em 3, portanto este comando levará o total para 4.
+![Incrementando o contador](../imagens/desafio3-quinta.png)
+
+**Ver número de visitas:**
+```powershell
+# Nota: Nos testes anteriores o contador já estava em 3, portanto este comando levará o total para 4
 curl http://localhost:5000/visitas
-![](../imagens/desafio3-sexta.png)
-![](../imagens/desafio3-setima.png)
+```
 
-# Incrementar mais vezes
+![Consultando visitas](../imagens/desafio3-sexta.png)
+![Resultado da consulta](../imagens/desafio3-setima.png)
+
+**Incrementar mais vezes:**
+```powershell
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 
 # Ver contador atualizado
 curl http://localhost:5000/visitas
 ```
-![](../imagens/desafio3-oitava.png)
-![](../imagens/desafio3-nona.png)
+
+![Múltiplos incrementos](../imagens/desafio3-oitava.png)
+![Contador atualizado](../imagens/desafio3-nona.png)
 
 ### 6. Testar persistência do banco de dados
 ```bash
@@ -158,13 +170,17 @@ docker-compose down
 
 # Subir novamente
 docker-compose up -d
-![](../imagens/desafio3-decima.png)
+```
 
+![Reiniciando serviços](../imagens/desafio3-decima.png)
+
+```bash
 # Verificar que os dados persistiram
 curl http://localhost:5000/visitas
 ```
-![](../imagens/desafio3-decimaprimeira.png).
-![](../imagens/desafio3-decimasegunda.png)
+
+![Dados persistidos](../imagens/desafio3-decimaprimeira.png)
+![Confirmação da persistência](../imagens/desafio3-decimasegunda.png)
 
 ### 7. Verificar comunicação entre serviços
 A comunicação foi validada através dos endpoints da API. O retorno dos dados comprova que o serviço web consegue conectar tanto no banco PostgreSQL (porta 5432) quanto no Redis (porta 6379) através da rede interna app-network.
@@ -172,35 +188,42 @@ A comunicação foi validada através dos endpoints da API. O retorno dos dados 
 ## Demonstração de Funcionalidades
 
 ### Teste 1: Cache funcionando
+
+**Primeira consulta (busca do banco):**
 ```bash
-# Primeira consulta (busca do banco)
 curl http://localhost:5000/visitas
 # Resposta: {"source": "database", "visitas": 6}
 ```
-![](../imagens/desafio3-decimaterceira.png).
-![](../imagens/desafio3-decimaquarta.png)
 
+![Consulta ao banco](../imagens/desafio3-decimaterceira.png)
+![Resultado do banco](../imagens/desafio3-decimaquarta.png)
+
+**Segunda consulta imediata (busca do cache):**
 ```bash
-# Segunda consulta imediata (busca do cache)
 curl http://localhost:5000/visitas
 # Resposta: {"source": "cache", "visitas": 6}
 ```
-![](../imagens/desafio3-decimaquinta.png).
-![](../imagens/desafio3-decimasexta.png)
+
+![Consulta ao cache](../imagens/desafio3-decimaquinta.png)
+![Resultado do cache](../imagens/desafio3-decimasexta.png)
 
 ### Teste 2: Invalidação de cache
+
+**Incrementar (invalida cache):**
 ```bash
-# Incrementar (invalida cache)
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 ```
-![](../imagens/desafio3-decimasetima.png)
+
+![Invalidando cache](../imagens/desafio3-decimasetima.png)
+
+**Consultar (busca do banco novamente):**
 ```bash
-# Consultar (busca do banco novamente)
 curl http://localhost:5000/visitas
 # Resposta: {"source": "database", "visitas": 7}
 ```
-![](../imagens/desafio3-decimaoitava.png).
-![](../imagens/desafio3-decimanona.png)
+
+![Nova consulta ao banco](../imagens/desafio3-decimaoitava.png)
+![Contador incrementado](../imagens/desafio3-decimanona.png)
 
 ### Teste 3: Persistência de dados
 ```bash
@@ -216,8 +239,9 @@ docker-compose up -d
 # Dados ainda estão lá
 curl http://localhost:5000/visitas
 ```
-![](../imagens/desafio3-vigesima.png).
-![](../imagens/desafio3-vigesimaprimeira.png)
+
+![Teste de persistência](../imagens/desafio3-vigesima.png)
+![Dados mantidos](../imagens/desafio3-vigesimaprimeira.png)
 
 ## Parar e Limpar
 ```bash
