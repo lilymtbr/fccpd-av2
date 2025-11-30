@@ -14,11 +14,11 @@ Este projeto demonstra o uso de Docker Compose para orquestrar múltiplos servi�
 ┌─────────────────────────────────────────────────┐
 │         Docker Compose (app-network)            │
 │                                                 │
-│  ┌──────────────┐     ┌──────────────┐          │
-│  │     Web      │────▶│   Cache     │          │
-│  │   (Flask)    │     │   (Redis)    │          │
-│  │  Porta 5000  │     │              │          │
-│  └──────┬───────┘     └──────────────┘          │
+│  ┌──────────────┐     ┌──────────────┐         │
+│  │     Web      │────▶│   Cache      │         │
+│  │   (Flask)    │     │   (Redis)    │         │
+│  │  Porta 5000  │     │              │         │
+│  └──────┬───────┘     └──────────────┘         │
 │         │                                       │
 │         │                                       │
 │         ▼                                       │
@@ -143,8 +143,9 @@ Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 ![Incrementando o contador](../imagens/desafio3-quinta.png)
 
 **Ver número de visitas:**
+
 ⚠️ **Nota:** Nos testes anteriores o contador já estava em 3, portanto este comando levará o total para 4
-curl http://localhost:5000/visitas
+
 ```powershell
 curl http://localhost:5000/visitas
 ```
