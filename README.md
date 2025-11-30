@@ -12,6 +12,11 @@ Este repositório contém a implementação de 5 desafios práticos envolvendo D
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Estrutura do Repositório](#estrutura-do-repositório)
 - [Como Usar Este Repositório](#como-usar-este-repositório)
+- [Progressão dos Desafios](#progressão-dos-desafios)
+- [Observações](#observações)
+- [Conceitos Aprendidos](#conceitos-aprendidos)
+- [Autora](#autora)
+- [Licença](#licença)
 
 ---
 
@@ -129,7 +134,7 @@ Este repositório contém a implementação de 5 desafios práticos envolvendo D
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Docker** - Containerização de aplicações
 - **Docker Compose** - Orquestração de múltiplos containers
@@ -141,7 +146,7 @@ Este repositório contém a implementação de 5 desafios práticos envolvendo D
 - **Alpine Linux** - Distribuição Linux minimalista
 - **Python Requests** - Biblioteca HTTP para comunicação entre serviços
 
-## 📁 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 FGCPD-AV2/
@@ -210,7 +215,7 @@ FGCPD-AV2/
     └── desafio5-*.png
 ```
 
-## 🚀 Como Usar Este Repositório
+## Como Usar Este Repositório
 
 Cada desafio está em sua própria pasta com:
 - README.md detalhado com explicações técnicas
@@ -247,7 +252,7 @@ Windows PowerShell:
 .\run.ps1
 ```
 
-## 📊 Progressão dos Desafios
+## Progressão dos Desafios
 
 ```
 Desafio 1: Containers em Rede
@@ -262,15 +267,15 @@ Desafio 5: API Gateway
     ↓ (Padrão de design avançado)
 ```
 
-## 📝 Observações
+## Observações
 
 - Todos os desafios foram desenvolvidos e testados no ambiente Windows com Docker Desktop
 - Cada desafio é independente e pode ser executado separadamente
 - Os READMEs de cada desafio contêm explicações detalhadas de decisões técnicas e funcionamento
 - Screenshots incluídos mostram saídas Windows PowerShell
-- Scripts de automação facilitam a execução em diferentes sistemas operacionais (Em alguns desafios)
+- Scripts de automação facilitam a execução em diferentes sistemas operacionais
 
-## 🎯 Conceitos Aprendidos
+## Conceitos Aprendidos
 
 Através destes desafios, foram explorados:
 
@@ -300,10 +305,10 @@ Através destes desafios, foram explorados:
    - Documentação clara
    - Scripts de automação
 
-## 👨‍💻 Autora
+## Autora
 
 Lisa M.
 
-## 📄 Licença
+
 
 Este projeto foi desenvolvido para fins educacionais como parte da disciplina FGCPD-AV2.
