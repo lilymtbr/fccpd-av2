@@ -184,8 +184,30 @@ curl http://localhost:5000/visitas
 ![Dados persistidos](../imagens/desafio3-decimaprimeira.png)
 ![Confirmação da persistência](../imagens/desafio3-decimasegunda.png)
 
-### 7. Verificar comunicação entre serviços
-A comunicação foi validada através dos endpoints da API. O retorno dos dados comprova que o serviço web consegue conectar tanto no banco PostgreSQL (porta 5432) quanto no Redis (porta 6379) através da rede interna app-network.
+### 7. Por que isso comprova a comunicação entre serviços?
+
+Os testes anteriores (passos 5 e 6) validam que os três serviços estão se comunicando corretamente através da rede `app-network`. Aqui está a prova de cada comunicação:
+
+**Comunicação Web ↔ PostgreSQL (comprovada):**
+- ✅ O comando `POST /incrementar` funcionou → Web conseguiu ESCREVER no banco (porta 5432)
+- ✅ O comando `GET /visitas` com `"source": "database"` → Web conseguiu LER do banco
+- ✅ Os dados persistiram após `docker-compose down` → Volume do PostgreSQL funcionando
+
+**Comunicação Web ↔ Redis (comprovada):**
+- ✅ O comando `GET /visitas` com `"source": "cache"` → Web conseguiu LER do Redis (porta 6379)
+- ✅ O cache expira em 30 segundos → Web conseguiu ESCREVER no Redis
+- ✅ Após incrementar, o cache foi invalidado → Web conseguiu DELETAR do Redis
+
+**Comunicação através da rede Docker (comprovada):**
+- ✅ O web usa `DB_HOST=db` e `REDIS_HOST=cache` (nomes, não IPs)
+- ✅ O DNS interno do Docker resolve esses nomes para os IPs corretos na rede `app-network`
+- ✅ Todos os containers estão isolados na mesma rede bridge customizada
+
+**Evidências técnicas:**
+- O serviço web **NÃO** usa IPs fixos como `172.18.0.2` ou `172.18.0.3`
+- Usa **nomes de serviço** definidos no docker-compose.yml: `db` e `cache`
+- O Docker Compose cria automaticamente a resolução DNS interna
+- Se a rede não funcionasse, o web retornaria erro de conexão ao tentar acessar `db:5432` ou `cache:6379`
 
 ## Demonstração de Funcionalidades
 
