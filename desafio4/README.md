@@ -259,7 +259,7 @@ curl http://localhost:5000/users
 ![](../imagens/desafio4-decimasegunda.png)
 ![](../imagens/desafio4-decimaterceira.png)
 
-Resposta esperada (JSON puro):
+**Saída no Linux:**
 ```json
 [
   {"id": 1, "name": "Alice Wonder", "joined_at": "2023-01-15", "role": "Admin"},
@@ -268,6 +268,17 @@ Resposta esperada (JSON puro):
 ]
 ```
 
+**Saída no Windows PowerShell:**
+```
+StatusCode        : 200
+StatusDescription : OK
+Content           : [{"id":1,"joined_at":"2023-01-15","name":"Alice Wonder","role":"Admin"},
+                    {"id":2,"joined_at":"2023-03-10","name":"Bob Builder","role":"Editor"},
+                    {"id":3,"joined_at":"2023-05-22","name":"Charlie Brown","role":"Viewer"}]
+```
+
+---
+
 **Dados processados do Service B:**
 ```bash
 curl http://localhost:5001/users-report
@@ -275,7 +286,7 @@ curl http://localhost:5001/users-report
 ![](../imagens/desafio4-decimaquarta.png)
 ![](../imagens/desafio4-decimaquinta.png)
 
-Resposta esperada (dados formatados):
+**Saída no Linux:**
 ```json
 {
   "source": "Service A",
@@ -287,6 +298,18 @@ Resposta esperada (dados formatados):
   ]
 }
 ```
+
+**Saída no Windows PowerShell:**
+```
+StatusCode        : 200
+StatusDescription : OK
+Content           : {"report":["Usu\u00e1rio Alice Wonder (Admin) est\u00e1 ativo desde 2023-01-15",
+                    "Usu\u00e1rio Bob Builder (Editor) est\u00e1 ativo desde 2023-03-10",
+                    "Usu\u00e1rio Charlie Brown (Viewer) est\u00e1 ativo desde 2023-05-22"],
+                    "source":"Service A","total_users":3}
+```
+
+💡 **Nota:** No Windows, `\u00e1` = á, `\u00f3` = ó (encoding Unicode no PowerShell)
 
 ### Teste 2: Tratamento de erros (Simular falha na comunicação)
 ```bash
