@@ -248,8 +248,9 @@ curl http://localhost:5000/users/1
 ```json
 {"id": 1, "name": "Ana Silva", "email": "ana@email.com", "role": "Manager"}
 ```
-```
+
 **Saída no Windows PowerShell:**
+```
 StatusCode        : 200
 Content           : {"email":"ana@email.com","id":1,"name":"Ana Silva","role":"Manager"}
 ```
@@ -329,13 +330,14 @@ curl http://localhost:5000/users
 ```
 ![](../imagens/desafio5-decimaquinta.png)
 
-**Saída esperada (erro 503):**
+**Saída no Linux:**
 ```json
 {
   "error": "Falha ao comunicar com Users Service",
   "details": "..."
 }
 ```
+**Saída no Windows PowerShell:**
 ```
 curl : {"details":"HTTPConnectionPool(host='users-service', port=5001): Max retries exceeded...","error":"Falha ao comunicar com Users Service"}
 No linha:1 caractere:1
