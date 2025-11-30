@@ -94,6 +94,7 @@ cd desafio4
 ```bash
 docker-compose up -d --build
 ```
+![](../imagens/desafio4-primeira.png)
 
 ### 3. Verificar se os serviços estão rodando
 ```bash
@@ -104,19 +105,27 @@ docker-compose ps
 ```bash
 # Logs do Service A
 docker-compose logs -f service-a
-
-# Logs do Service B (em outro terminal)
+```
+![](../imagens/desafio4-segunda.png)
+```bash
+# Logs do Service B (Segundo terminal. Dar cd desafio4 de novo)
 docker-compose logs -f service-b
 ```
+![](../imagens/desafio4-terceira.png)
 
 ### 5. Testar os Microsserviços
 
 ⚠️ **Nota sobre encoding:** No Windows PowerShell, caracteres acentuados aparecem como Unicode (`\u00e1` = á, `\u00f3` = ó). Isso é normal e não afeta o funcionamento.
 
 **Teste 1: Acessar Service A diretamente (Dados Brutos)**
+
+Verificamos se o produtor está listando os usuários corretamente na porta 5000.
 ```powershell
+# Terceiro terminal
 curl http://localhost:5000/users
 ```
+![](../imagens/desafio4-quarta.png)
+![](../imagens/desafio4-quinta.png)
 
 **Saída no Linux:**
 ```json
@@ -143,6 +152,9 @@ Content           : [{"id":1,"joined_at":"2023-01-15","name":"Alice Wonder","rol
 curl http://localhost:5000/
 ```
 
+![](../imagens/desafio4-sexta.png)
+![](../imagens/desafio4-setima.png)
+
 **Saída no Linux:**
 ```json
 {"service": "Service A (Users)", "status": "Online"}
@@ -157,9 +169,13 @@ Content           : {"service":"Service A (Users)","status":"Online"}
 ---
 
 **Teste 3: Acessar Service B (Relatório Processado)**
+
+Solicitamos o relatório na porta 5001. Aqui ocorre a comunicação interna entre os containers.
 ```powershell
 curl http://localhost:5001/users-report
 ```
+![](../imagens/desafio4-oitava.png)
+![](../imagens/desafio4-nona.png)
 
 **Saída no Linux:**
 ```json
@@ -191,6 +207,8 @@ Content           : {"report":["Usu\u00e1rio Alice Wonder (Admin) est\u00e1 ativ
 ```powershell
 curl http://localhost:5001/
 ```
+![](../imagens/desafio4-decima.png)
+![](../imagens/desafio4-decimaprimeira.png)
 
 **Saída no Linux:**
 ```json
@@ -232,7 +250,45 @@ Os testes anteriores (passo 5) validam que os dois microsserviços estão se com
 
 ## Demonstração de Funcionalidades
 
-### Teste 1: Tratamento de erros (Simular falha na comunicação)
+### Teste 1: Dados brutos vs Dados processados
+
+**Dados brutos do Service A:**
+```bash
+curl http://localhost:5000/users
+```
+![](../imagens/desafio4-decimasegunda.png)
+![](../imagens/desafio4-decimaterceira.png)
+
+Resposta esperada (JSON puro):
+```json
+[
+  {"id": 1, "name": "Alice Wonder", "joined_at": "2023-01-15", "role": "Admin"},
+  {"id": 2, "name": "Bob Builder", "joined_at": "2023-03-10", "role": "Editor"},
+  {"id": 3, "name": "Charlie Brown", "joined_at": "2023-05-22", "role": "Viewer"}
+]
+```
+
+**Dados processados do Service B:**
+```bash
+curl http://localhost:5001/users-report
+```
+![](../imagens/desafio4-decimaquarta.png)
+![](../imagens/desafio4-decimaquinta.png)
+
+Resposta esperada (dados formatados):
+```json
+{
+  "source": "Service A",
+  "total_users": 3,
+  "report": [
+    "Usuário Alice Wonder (Admin) está ativo desde 2023-01-15",
+    "Usuário Bob Builder (Editor) está ativo desde 2023-03-10",
+    "Usuário Charlie Brown (Viewer) está ativo desde 2023-05-22"
+  ]
+}
+```
+
+### Teste 2: Tratamento de erros (Simular falha na comunicação)
 ```bash
 # Parar o Service A
 docker stop service-a
@@ -240,6 +296,7 @@ docker stop service-a
 # Tentar acessar o relatório
 curl http://localhost:5001/users-report
 ```
+![](../imagens/desafio4-decimasexta.png)
 
 **Saída esperada no Linux:**
 ```json
@@ -264,7 +321,7 @@ docker start service-a
 curl http://localhost:5001/users-report
 ```
 
-Agora deve funcionar novamente! ✅
+Agora deve funcionar novamente!
 
 ## Parar e Limpar
 ```bash
@@ -284,6 +341,45 @@ docker-compose build
 # Subir e reconstruir
 docker-compose up -d --build
 ```
+
+## Scripts de Execução
+
+Este projeto inclui scripts de automação para facilitar a execução em diferentes sistemas operacionais.
+
+### Linux/Mac
+
+**Executar:**
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+**Parar e limpar:**
+```bash
+chmod +x stop.sh
+./stop.sh
+```
+
+### Windows PowerShell
+
+**Executar:**
+```powershell
+.\run.ps1
+```
+
+**Parar e limpar:**
+```powershell
+.\stop.ps1
+```
+
+⚠️ **Nota:** Se aparecer erro de política de execução no Windows, execute antes:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Execução Manual (alternativa)
+
+Se preferir executar manualmente sem os scripts, siga os passos na seção "Instruções de Execução" abaixo.
 
 ## Resultado Esperado
 
@@ -384,6 +480,10 @@ desafio4/
 │   ├── app.py
 │   └── requirements.txt
 ├── docker-compose.yml
+├── run.sh
+├── run.ps1
+├── stop.sh
+├── stop.ps1
 └── README.md
 ```
 
