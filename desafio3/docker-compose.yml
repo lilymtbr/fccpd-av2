@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./web
+    container_name: web-app
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=contador_db
+      - DB_USER=postgres
+      - DB_PASS=senha123
+      - REDIS_HOST=cache
+    depends_on:
+      - db
+      - cache
+    networks:
+      - app-network
+
+  db:
+    image: postgres:15-alpine
+    container_name: postgres-db
+    environment:
+      - POSTGRES_DB=contador_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=senha123
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+  cache:
+    image: redis:7-alpine
+    container_name: redis-cache
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db-data:
