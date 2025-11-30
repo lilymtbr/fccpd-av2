@@ -140,7 +140,7 @@ docker run -d --name servidor --network rede-desafio1 -p 8080:8080 servidor-web
 docker run -d --name cliente --network rede-desafio1 cliente-web
 ```
 
-### 6. Visualizar os logs (comunicação)
+### 6. Visualizar os logs (Teste de Comunicação)
 ```bash
 docker logs -f cliente
 ```
@@ -164,6 +164,44 @@ docker network rm rede-desafio1
 # Remover as imagens (opcional)
 docker rmi servidor-web cliente-web
 ```
+## Scripts de Execução
+
+Este projeto inclui scripts de automação para facilitar a execução em diferentes sistemas operacionais.
+
+### Linux/Mac
+
+**Executar:**
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+**Parar e limpar:**
+```bash
+chmod +x stop.sh
+./stop.sh
+```
+
+### Windows PowerShell
+
+**Executar:**
+```powershell
+.\run.ps1
+```
+
+**Parar e limpar:**
+```powershell
+.\stop.ps1
+```
+
+⚠️ **Nota:** Se aparecer erro de política de execução no Windows, execute antes:
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Execução Manual (alternativa)
+
+Se preferir executar manualmente sem os scripts, siga os passos na seção "Instruções de Execução" acima.
 
 ## Resultado Esperado
 
@@ -186,5 +224,9 @@ desafio1/
 │   └── Dockerfile
 ├── cliente/
 │   └── Dockerfile
+├── run.sh          ← Copie o código 1
+├── run.ps1         ← Copie o código 2
+├── stop.sh         ← Copie o código 3
+├── stop.ps1        ← Copie o código 4
 └── README.md
 ```
