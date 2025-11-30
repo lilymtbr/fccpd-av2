@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  gateway:
+    build: ./gateway
+    container_name: api-gateway
+    ports:
+      - "5000:5000"
+    environment:
+      - USERS_SERVICE_URL=http://users-service:5001
+      - ORDERS_SERVICE_URL=http://orders-service:5002
+    depends_on:
+      - users-service
+      - orders-service
+    networks:
+      - gateway-network
+
+  users-service:
+    build: ./users-service
+    container_name: users-service
+    networks:
+      - gateway-network
+
+  orders-service:
+    build: ./orders-service
+    container_name: orders-service
+    networks:
+      - gateway-network
+
+networks:
+  gateway-network:
+    driver: bridge
