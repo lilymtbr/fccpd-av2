@@ -309,6 +309,6 @@ Através destes desafios, foram explorados:
 
 Lisa M.
 
-
+## Licença
 
 Este projeto foi desenvolvido para fins educacionais como parte da disciplina FGCPD-AV2.
