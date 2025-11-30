@@ -115,14 +115,14 @@ docker-compose up -d
 docker-compose ps
 ```
 
-![Status dos containers](../imagens/desafio3-primeira.png)
+![](../imagens/desafio3-primeira.png)
 
 ### 4. Ver logs da aplicação web
 ```bash
 docker-compose logs -f web
 ```
 
-![Logs do serviço web](../imagens/desafio3-segunda.png)
+![](../imagens/desafio3-segunda.png)
 
 ### 5. Testar a API
 
@@ -131,8 +131,8 @@ docker-compose logs -f web
 curl http://localhost:5000
 ```
 
-![Resposta do endpoint raiz](../imagens/desafio3-terceira.png)
-![Detalhes da resposta](../imagens/desafio3-quarta.png)
+![](../imagens/desafio3-terceira.png)
+![](../imagens/desafio3-quarta.png)
 
 **Incrementar contador:**
 ```powershell
@@ -140,7 +140,7 @@ curl http://localhost:5000
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 ```
 
-![Incrementando o contador](../imagens/desafio3-quinta.png)
+![](../imagens/desafio3-quinta.png)
 
 **Ver número de visitas:**
 
@@ -150,8 +150,8 @@ Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 curl http://localhost:5000/visitas
 ```
 
-![Consultando visitas](../imagens/desafio3-sexta.png)
-![Resultado da consulta](../imagens/desafio3-setima.png)
+![](../imagens/desafio3-sexta.png)
+![](../imagens/desafio3-setima.png)
 
 **Incrementar mais vezes:**
 ```powershell
@@ -162,8 +162,8 @@ Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 curl http://localhost:5000/visitas
 ```
 
-![Múltiplos incrementos](../imagens/desafio3-oitava.png)
-![Contador atualizado](../imagens/desafio3-nona.png)
+![](../imagens/desafio3-oitava.png)
+![](../imagens/desafio3-nona.png)
 
 ### 6. Testar persistência do banco de dados
 ```bash
@@ -174,15 +174,15 @@ docker-compose down
 docker-compose up -d
 ```
 
-![Reiniciando serviços](../imagens/desafio3-decima.png)
+![](../imagens/desafio3-decima.png)
 
 ```bash
 # Verificar que os dados persistiram
 curl http://localhost:5000/visitas
 ```
 
-![Dados persistidos](../imagens/desafio3-decimaprimeira.png)
-![Confirmação da persistência](../imagens/desafio3-decimasegunda.png)
+![](../imagens/desafio3-decimaprimeira.png)
+![](../imagens/desafio3-decimasegunda.png)
 
 ### 7. Por que isso comprova a comunicação entre serviços?
 
@@ -219,8 +219,8 @@ curl http://localhost:5000/visitas
 # Resposta: {"source": "database", "visitas": 6}
 ```
 
-![Consulta ao banco](../imagens/desafio3-decimaterceira.png)
-![Resultado do banco](../imagens/desafio3-decimaquarta.png)
+![](../imagens/desafio3-decimaterceira.png)
+![](../imagens/desafio3-decimaquarta.png)
 
 **Segunda consulta imediata (busca do cache):**
 ```bash
@@ -228,8 +228,8 @@ curl http://localhost:5000/visitas
 # Resposta: {"source": "cache", "visitas": 6}
 ```
 
-![Consulta ao cache](../imagens/desafio3-decimaquinta.png)
-![Resultado do cache](../imagens/desafio3-decimasexta.png)
+![](../imagens/desafio3-decimaquinta.png)
+![](../imagens/desafio3-decimasexta.png)
 
 ### Teste 2: Invalidação de cache
 
@@ -238,7 +238,7 @@ curl http://localhost:5000/visitas
 Invoke-WebRequest -Uri http://localhost:5000/incrementar -Method POST
 ```
 
-![Invalidando cache](../imagens/desafio3-decimasetima.png)
+![](../imagens/desafio3-decimasetima.png)
 
 **Consultar (busca do banco novamente):**
 ```bash
@@ -246,8 +246,8 @@ curl http://localhost:5000/visitas
 # Resposta: {"source": "database", "visitas": 7}
 ```
 
-![Nova consulta ao banco](../imagens/desafio3-decimaoitava.png)
-![Contador incrementado](../imagens/desafio3-decimanona.png)
+![](../imagens/desafio3-decimaoitava.png)
+![](../imagens/desafio3-decimanona.png)
 
 ### Teste 3: Persistência de dados
 ```bash
@@ -264,8 +264,8 @@ docker-compose up -d
 curl http://localhost:5000/visitas
 ```
 
-![Teste de persistência](../imagens/desafio3-vigesima.png)
-![Dados mantidos](../imagens/desafio3-vigesimaprimeira.png)
+![](../imagens/desafio3-vigesima.png)
+![](../imagens/desafio3-vigesimaprimeira.png)
 
 ## Parar e Limpar
 ```bash

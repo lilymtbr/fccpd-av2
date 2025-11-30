@@ -1,0 +1,24 @@
+services:
+  service-a:
+    build: ./service-a
+    container_name: service-a
+    ports:
+      - "5000:5000"
+    networks:
+      - microservices-net
+
+  service-b:
+    build: ./service-b
+    container_name: service-b
+    ports:
+      - "5001:5001"
+    environment:
+      - SERVICE_A_URL=http://service-a:5000
+    depends_on:
+      - service-a
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
