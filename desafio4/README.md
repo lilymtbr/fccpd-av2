@@ -346,6 +346,10 @@ docker-compose up -d --build
 
 Este projeto inclui scripts de automação para facilitar a execução em diferentes sistemas operacionais.
 
+```bash
+cd desafio4
+```
+
 ### Linux/Mac
 
 **Executar:**

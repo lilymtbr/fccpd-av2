@@ -168,6 +168,10 @@ docker rmi servidor-web cliente-web
 
 Este projeto inclui scripts de automação para facilitar a execução em diferentes sistemas operacionais.
 
+```bash
+cd desafio1
+```
+
 ### Linux/Mac
 
 **Executar:**
